@@ -6,6 +6,10 @@ const {Server} = require('socket.io')
 
 app.use(cors())
 
+app.get('/', (reg, res) => {
+    res.json({message: 'Welcome to millionare chat app'})
+})
+
 const server = http.createServer(app)
 
 const io = new Server(server, {
@@ -27,5 +31,5 @@ io.on('connection', (socket) => {
 })
 
 server.listen(3000, () => {
-    console.log('Server is listenint on port 3000');
+    console.log('Server is listening on port 3000');
 })
