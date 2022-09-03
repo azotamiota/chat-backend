@@ -14,7 +14,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
     cors: {
-        origin: "https://the-millionaires-chat.netlify.app",
+        origin: "https://chat-simple.netlify.app",
         methods: ['GET', 'POST']
     }
 })
