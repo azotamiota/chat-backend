@@ -32,6 +32,21 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log(`User ${socket.id} disconnected`);
     })
+
+    socket.on('user_started_chat', (data) => {
+        io.emit('user_joined_chat', data)
+        console.log('data in io.on, userStarted chat and then emitted: ', data)
+    })
+
+    socket.on('refresh_users', (data) => {
+        io.emit('update_users_list', data)
+        console.log('data in io.on, userStarted chat and then emitted: ', data)
+    })
+
+    socket.on('all_users_online', (data) => {
+        io.emit('updated_user_list', data)
+        console.log('updated_user_list: ', data)
+    })
 })
 
 const port = process.env.PORT || 3000
