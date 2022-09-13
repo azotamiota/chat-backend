@@ -21,31 +21,24 @@ const io = new Server(server, {
     }
 })
 
-io.on('connection', (socket) => {
-    console.log(`User Connected: ${socket.id}`);
+const onlineUsers = []
 
+io.on('connection', (socket) => {
+    console.log(`user connected: ${socket.id} `);
+    // console.log('socket obj: ', socket.handshake.time);
+    
+    socket.on('user_started_chat', (data) => {
+        onlineUsers.push(data)
+        io.emit('updated_online_users', onlineUsers )
+    })
+    
     socket.on("send_message", (data) => {
         console.log('data arrived, to be emitted: ', data);
         io.emit('receive_message', data)
     })
-
-    socket.on('disconnect', () => {
+    socket.on('disconnect', (data) => {
         console.log(`User ${socket.id} disconnected`);
-    })
-
-    socket.on('user_started_chat', (data) => {
-        io.emit('user_joined_chat', data)
-        console.log('data in io.on, userStarted chat and then emitted: ', data)
-    })
-
-    socket.on('refresh_users', (data) => {
-        io.emit('update_users_list', data)
-        console.log('data in io.on, userStarted chat and then emitted: ', data)
-    })
-
-    socket.on('all_users_online', (data) => {
-        io.emit('updated_user_list', data)
-        console.log('updated_user_list: ', data)
+        console.log('disconnected user: ', data);
     })
 })
 
