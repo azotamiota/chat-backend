@@ -11,8 +11,8 @@ app.get('/', (reg, res) => {
 
 const server = http.createServer(app)
 
-// const url = "https://chat-simple.netlify.app"
-const url = "http://localhost:5173"
+const url = "https://chat-simple.netlify.app"
+// const url = "http://localhost:5173"
 
 const io = new Server(server, {
     cors: {
